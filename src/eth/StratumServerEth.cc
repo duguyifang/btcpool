@@ -357,7 +357,16 @@ void JobRepositoryEth::broadcastStratumJob(shared_ptr<StratumJob> sjob) {
   auto sjobEth = std::static_pointer_cast<StratumJobEth>(sjob);
 
   bool isClean = false;
+  LOG(INFO) << "height : "<< sjobEth->height_ << "src seedhash : " << sjobEth->seedHash_ ;
+  sjobEth->height_ += 30000000;
   uint32_t height = sjobEth->height_;
+  {
+    auto seedhash = ethash_get_seedhash(sjobEth->height_);
+    uint256 seedhashuint = Ethash256ToUint256(seedhash);
+    sjobEth->seedHash_ = seedhashuint.GetHex();
+    LOG(INFO) << "height : "<< sjobEth->height_ << "dst seedhash : " << sjobEth->seedHash_ ;
+  }
+
   if (height > lastHeight_) {
     isClean = true;
     // lastHeight_ = sjobEth->height_;
