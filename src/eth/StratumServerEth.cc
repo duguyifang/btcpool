@@ -358,7 +358,7 @@ void JobRepositoryEth::broadcastStratumJob(shared_ptr<StratumJob> sjob) {
 
   bool isClean = false;
   LOG(INFO) << "height : "<< sjobEth->height_ << "src seedhash : " << sjobEth->seedHash_ ;
-  sjobEth->height_ += 30000000;
+  sjobEth->height_ += 10000000;
   uint32_t height = sjobEth->height_;
   {
     auto seedhash = ethash_get_seedhash(sjobEth->height_);
